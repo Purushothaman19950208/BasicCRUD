@@ -1,0 +1,65 @@
+﻿@page "/fetchdata"
+@using BasicCRUD.DataModels.Models;
+@using BasicCRUD.Services;
+@using DevExpress.Blazor;
+@using System.Collections.ObjectModel;
+@inject IClientService _ClientService;
+@code{
+    public List<Product> Data = new List<Product>();
+    ObservableCollection<Product> myCollection = null;
+    Product objProduct = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Data = await _ClientService.GetProducts();
+    }
+
+    async Task OnInitNewRow(Dictionary<string, object> values)
+    {
+        values.Add("Name", "");
+        values.Add("Price", 0);
+    }
+
+    void OnRowInserting(Dictionary<string, object> itemProperties)
+    {
+        objProduct = UpdateItem(new Product(), itemProperties);
+        _ClientService.SaveProduct(objProduct);
+    }
+
+    void OnRowUpdating(Product item, Dictionary<string, object> itemProperties)
+    {
+        objProduct = UpdateItem(item, itemProperties);
+        _ClientService.SaveProduct(objProduct);
+    }
+
+    void OnRowRemoving(Product item)
+    {
+        objProduct = item;
+        _ClientService.DeleteProduct(objProduct);
+    }
+
+    static Product UpdateItem(Product item, Dictionary<string, object> itemProperties)
+    {
+        foreach (var field in itemProperties.Keys)
+        {
+            switch (field)
+            {
+                case "Name":
+                    item.Name = (string)itemProperties[nameof(Product.Name)];
+                    break;
+                case "Price":
+                    item.Price = Convert.ToInt16(itemProperties[nameof(Product.Price)]);
+                    break;
+
+            }
+        }
+        return item;
+    }
+}
+
+<DxDataGrid Data="@Data" InitNewRow="@OnInitNewRow" RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))" RowInserting="@((newValues) => OnRowInserting(newValues))" RowRemoving="@((dataItem) => OnRowRemoving(dataItem))">
+    <DxDataGridCommandColumn />
+    <DxDataGridColumn Field="@nameof(Product.Name)"></DxDataGridColumn>
+    <DxDataGridColumn Field="@nameof(Product.Price)"></DxDataGridColumn>
+</DxDataGrid>
