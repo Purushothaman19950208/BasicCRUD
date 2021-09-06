@@ -6,7 +6,6 @@
 @inject IClientService _ClientService;
 @code{
     public List<Product> Data = new List<Product>();
-    ObservableCollection<Product> myCollection = null;
     Product objProduct = new Product();
 
     protected override async Task OnInitializedAsync()
@@ -58,7 +57,7 @@
     }
 }
 
-<DxDataGrid Data="@Data" InitNewRow="@OnInitNewRow" RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))" RowInserting="@((newValues) => OnRowInserting(newValues))" RowRemoving="@((dataItem) => OnRowRemoving(dataItem))">
+<DxDataGrid Data="@Data" ShowFilterRow="true" InitNewRow="@OnInitNewRow" RowUpdating="@((updatingDataItem, newValues) => OnRowUpdating(updatingDataItem, newValues))" RowInserting="@((newValues) => OnRowInserting(newValues))" RowRemoving="@((dataItem) => OnRowRemoving(dataItem))">
     <DxDataGridCommandColumn />
     <DxDataGridColumn Field="@nameof(Product.Name)"></DxDataGridColumn>
     <DxDataGridColumn Field="@nameof(Product.Price)"></DxDataGridColumn>
