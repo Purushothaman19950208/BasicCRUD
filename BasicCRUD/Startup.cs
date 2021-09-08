@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BasicCRUD.BusinessService.Services;
+using BasicCRUD.DataModels.Models;
 using BasicCRUD.Services;
-//using BasicCRUD.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,9 +32,10 @@ namespace BasicCRUD
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpClient();
-           // webBuilder.UseStaticWebAssets();
-            //services.AddSingleton<WeatherForecastService>();
-            services.AddHttpClient<IClientService, ClientService>(client => { client.BaseAddress = new Uri("http://localhost:47778"); } );
+          //  services.AddEntityFrameworkSqlServer().AddDbContext<PracticeDBContext>(option => option.UseSqlServer(Configuration["database:connection"])); ;
+            services.AddScoped<IClientService, ClientService>();
+            services.AddDbContext<PracticeDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

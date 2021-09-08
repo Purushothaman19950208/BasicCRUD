@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @using BasicCRUD.DataModels.Models;
+@using BasicCRUD.BusinessService;
 @using BasicCRUD.Services;
 @using DevExpress.Blazor;
 @using System.Collections.ObjectModel;
@@ -8,10 +9,10 @@
     public List<Product> Data = new List<Product>();
     Product objProduct = new Product();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()  
     {
         await base.OnInitializedAsync();
-        Data = await _ClientService.GetProducts();
+        Data =  _ClientService.GetProducts();
     }
 
     async Task OnInitNewRow(Dictionary<string, object> values)

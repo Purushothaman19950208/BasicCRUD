@@ -7,36 +7,34 @@ using System.Threading.Tasks;
 using BasicCRUD.DataModels.Models;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
+using BasicCRUD.BusinessService;
+using BasicCRUD.BusinessService.Services;
 
 namespace BasicCRUD.Services
 {
     public class ClientService : IClientService
     {
 
-        private readonly HttpClient _httpClient = null;
+        private readonly IProductService _ProductService = null;
 
-        public ClientService(HttpClient httpClient)
+        public ClientService(IProductService ProductService)
         {
-            _httpClient = httpClient;
+            _ProductService = ProductService;
         }
-        public async Task<List<Product>> GetProducts()
+        public List<Product> GetProducts()
         {
-            return await _httpClient.GetJsonAsync<List<Product>>("api/product/getProducts");
-        }
-
-
-        public async Task<string>  SaveProduct(Product product)
-        {
-            StringContent data = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
-            var response =  _httpClient.PostAsync("api/product/SaveProduct" , data);
-            return await response.Result.Content.ReadAsStringAsync();
+            return  _ProductService.getProducts();
         }
 
-        public async Task<string> DeleteProduct(Product product)
+
+        public void SaveProduct(Product product)
         {
-            StringContent data = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
-            var response = _httpClient.PostAsync("api/product/DeleteProduct", data);
-            return await response.Result.Content.ReadAsStringAsync();
+            _ProductService.SaveProduct(product);
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            _ProductService.DeleteProduct(product);
         }
 
     }

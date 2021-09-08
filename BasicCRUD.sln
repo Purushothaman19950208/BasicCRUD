@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicCRUD.DataModels", "Bas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicCRUD.BusinessService", "BasicCRUD.BusinessService\BasicCRUD.BusinessService.csproj", "{A2338F25-7968-4AEF-A642-FC0E4DAF2E53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicCRUD.API", "BasicCRUD.API\BasicCRUD.API.csproj", "{CC336DE4-B349-4E9E-B5A0-FC3B08DF1AD9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{A2338F25-7968-4AEF-A642-FC0E4DAF2E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2338F25-7968-4AEF-A642-FC0E4DAF2E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2338F25-7968-4AEF-A642-FC0E4DAF2E53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC336DE4-B349-4E9E-B5A0-FC3B08DF1AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC336DE4-B349-4E9E-B5A0-FC3B08DF1AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC336DE4-B349-4E9E-B5A0-FC3B08DF1AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC336DE4-B349-4E9E-B5A0-FC3B08DF1AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,9 +8,9 @@ namespace BasicCRUD.Services
 {
     public interface IClientService
     {
-        Task<List<Product>> GetProducts();
-        Task<string> SaveProduct(Product product);
-        Task<string> DeleteProduct(Product product);
+        List<Product> GetProducts();
+        void SaveProduct(Product product);
+        void DeleteProduct(Product product);
 
     }
 }
