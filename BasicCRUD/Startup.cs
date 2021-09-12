@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BasicCRUD.BusinessService.Services;
+using BasicCRUD.DataModels.Dapper;
 using BasicCRUD.DataModels.Models;
 using BasicCRUD.Services;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,7 @@ namespace BasicCRUD
             services.AddScoped<IClientService, ClientService>();
             services.AddDbContext<PracticeDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProducts, Products>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,5 +11,7 @@ namespace BasicCRUD.BusinessService.Services
         void SaveProduct(Product objProduct);
 
         void DeleteProduct(Product objProduct);
+
+        List<Category> getCategories();
     }
 }

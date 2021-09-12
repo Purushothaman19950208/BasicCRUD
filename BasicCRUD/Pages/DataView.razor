@@ -4,21 +4,25 @@
 @using BasicCRUD.Services;
 @using DevExpress.Blazor;
 @using System.Collections.ObjectModel;
+@using System.Text.Json;
 @inject IClientService _ClientService;
 @code{
     public List<Product> Data = new List<Product>();
     Product objProduct = new Product();
+    public Category[] categories = null;
 
-    protected override async Task OnInitializedAsync()  
+    protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Data =  _ClientService.GetProducts();
+        categories = _ClientService.GetCategories().ToArray();
+        Data = _ClientService.GetProducts();
     }
 
     async Task OnInitNewRow(Dictionary<string, object> values)
     {
         values.Add("Name", "");
         values.Add("Price", 0);
+        values.Add("Category", 0);
     }
 
     void OnRowInserting(Dictionary<string, object> itemProperties)
@@ -38,6 +42,9 @@
         objProduct = item;
         _ClientService.DeleteProduct(objProduct);
     }
+    public string[] CloudCover = new[] {
+        "Sunny", "Partly cloudy", "Cloudy", "Storm"
+    };
 
     static Product UpdateItem(Product item, Dictionary<string, object> itemProperties)
     {
@@ -51,6 +58,9 @@
                 case "Price":
                     item.Price = Convert.ToInt16(itemProperties[nameof(Product.Price)]);
                     break;
+                case "CategoryId":
+                    item.CategoryId = Convert.ToInt16(itemProperties[nameof(Product.CategoryId)]);
+                    break;
 
             }
         }
@@ -62,4 +72,6 @@
     <DxDataGridCommandColumn />
     <DxDataGridColumn Field="@nameof(Product.Name)"></DxDataGridColumn>
     <DxDataGridColumn Field="@nameof(Product.Price)"></DxDataGridColumn>
+    <DxDataGridComboBoxColumn  TextFieldName="Name" ValueFieldName="Id"
+                              Data="@categories" />
 </DxDataGrid>

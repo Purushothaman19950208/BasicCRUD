@@ -37,5 +37,10 @@ namespace BasicCRUD.Services
             _ProductService.DeleteProduct(product);
         }
 
+        public List<Category> GetCategories()
+        {
+            return _ProductService.getCategories();
+        }
+
     }
 }
